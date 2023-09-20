@@ -7,10 +7,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
 
+    public List<EnemyBrain> enemies = null;
     public List<WayPoint> enemiesWaypoint = null;
     public HeroBrain player = null;
-
-
 
     private void Awake()
     {
