@@ -29,8 +29,10 @@ public class HeroBrain : CharacterBrain
     }
     protected bool onAttack = false;
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (enemy != null)
             onAttack = Vector3.Distance(transform.position, enemy.transform.position) <= attackRange;
 
@@ -44,7 +46,6 @@ public class HeroBrain : CharacterBrain
             agent.RotateToDirection(dir);
 
             timer += Time.deltaTime;
-
             if (timer >= reload)
             {
                 Shot(dir);

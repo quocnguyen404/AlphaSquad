@@ -27,8 +27,10 @@ public class EnemyBrain : CharacterBrain
         agent.OnArried = OnArried;
     }
 
-    protected virtual void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (arried)
             return;
 

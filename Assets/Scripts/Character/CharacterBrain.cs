@@ -15,6 +15,7 @@ public class CharacterBrain : MonoBehaviour
 
     protected float health = 100f;
     protected float timer = 0f;
+    protected bool aLive => health > 0;
 
     [Header("Component System")]
     [SerializeField] protected Agent agent = null;
@@ -28,6 +29,20 @@ public class CharacterBrain : MonoBehaviour
     {
         agent.Initialized();
         characterAnimator.Initialized();
+    }
+
+    protected virtual void Update()
+    {
+        if (!aLive)
+        {
+            characterAnimator.SetTrigger("Die");
+            return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space)) 
+        { 
+            characterAnimator.SetBool("Die", true);
+        }
     }
 
     protected void Shot(Vector3 dir)
@@ -44,7 +59,6 @@ public class CharacterBrain : MonoBehaviour
 
         if (health <= 0f)
         {
-            characterAnimator.SetTrigger("Die");
             Debug.Log(name + " die");
         }
     }
