@@ -41,7 +41,7 @@ public class CharacterBrain : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space)) 
         { 
-            characterAnimator.SetBool("Die", true);
+            characterAnimator.SetBool("Die", true); 
         }
     }
 
