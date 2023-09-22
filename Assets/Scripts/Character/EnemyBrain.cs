@@ -14,11 +14,9 @@ public class EnemyBrain : CharacterBrain
     protected List<Vector3> wayPoints = null;
     protected int currentWaypointIndex = 0;
 
-    protected Transform player => GameManager.Instance.player.transform;
+    protected override Transform target => GameManager.Instance.player.transform;
 
     protected bool arried = false;
-    protected bool onFollowPlayer = false;
-    protected bool onAttackPlayer = false;
 
     protected override void Awake()
     {
@@ -34,35 +32,25 @@ public class EnemyBrain : CharacterBrain
         if (arried)
             return;
 
-        onFollowPlayer = Vector3.Distance(transform.position, player.position) <= followRange;
-        onAttackPlayer = Vector3.Distance(transform.position, player.position) <= attackRange;
-        
-        if (onAttackPlayer)
-        {
-            characterAnimator.SetAttack(CharacterAnimator.AttackType.Powerful);
-            Vector3 dir = player.position - transform.position;
-            agent.RotateToDirection(dir);
-
-            timer += Time.deltaTime;
-
-            if (timer >= reload)
-            {
-                Shot(dir);
-                timer = 0f;
-            }
-            return;
-        }
-
-        if (onFollowPlayer)
+        if (FollowPlayer())
         {
             characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
-            agent.MoveToDestination(player.position);
+            agent.MoveToDestination(target.position);
             return;
         }
-
 
         characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
         agent.MoveToDestination(wayPoints[currentWaypointIndex]);
+    }
+
+    protected virtual bool FollowPlayer()
+    {
+        return Vector3.Distance(transform.position, target.position) <= followRange;
+    }
+
+    protected override bool CanAttack()
+    {
+        return Vector3.Distance(transform.position, target.position) <= attackRange;
     }
 
     protected virtual void OnArried()
@@ -77,13 +65,4 @@ public class EnemyBrain : CharacterBrain
             arried = false;
         });
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.tag == "Bullet")
-    //    {
-    //        TakeDamage();
-    //        Debug.Log(name + "take damage");
-    //    }
-    //}
 }

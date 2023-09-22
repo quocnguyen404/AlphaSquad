@@ -7,7 +7,7 @@ public class HeroBrain : CharacterBrain
 {
     [SerializeField] protected Joystick joyStick = null;
 
-    protected Transform enemy
+    protected override Transform target
     {
         get
         {
@@ -33,24 +33,19 @@ public class HeroBrain : CharacterBrain
     {
         base.Update();
 
-        if (enemy != null)
-            onAttack = Vector3.Distance(transform.position, enemy.transform.position) <= attackRange;
+        if (target != null)
+            onAttack = Vector3.Distance(transform.position, target.transform.position) <= attackRange;
 
         if (joyStick.Direction != Vector2.zero)
             onAttack = false;
 
-        if (onAttack)
+        if (onAttack && CanAttack())
         {
             characterAnimator.SetAttack(CharacterAnimator.AttackType.Buff);
-            Vector3 dir = enemy.position - transform.position;
+            Vector3 dir = target.position - transform.position;
             agent.RotateToDirection(dir);
 
-            timer += Time.deltaTime;
-            if (timer >= reload)
-            {
-                Shot(dir);
-                timer = 0f;
-            }
+            DoAttack();
 
             return;
         }
@@ -66,5 +61,14 @@ public class HeroBrain : CharacterBrain
         agent.MoveToDirection(targetDirection);
     }
 
-    
+    protected override bool CanAttack()
+    {
+        bool canAttack = true;
+
+        canAttack = aLive;
+        canAttack = target != null;
+        canAttack = Vector3.Distance(transform.position, target.position) <= characterAttack.currentWeapon.weaponObject.attackRange;
+
+        return canAttack;
+    }
 }
