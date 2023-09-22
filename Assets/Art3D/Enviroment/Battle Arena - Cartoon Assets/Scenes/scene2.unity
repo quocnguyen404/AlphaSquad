@@ -41085,7 +41085,7 @@ PrefabInstance:
     - target: {fileID: 696611890852234184, guid: fea06135f77fb574b943033fedbc5c89, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 356902156075422017, guid: 4d67abc4034d06f4480cd5a8138f5f25, type: 3}
+      objectReference: {fileID: 429543989968508660, guid: efce523f3cfae2842902af966bb2252c, type: 3}
     - target: {fileID: 696611890852234184, guid: fea06135f77fb574b943033fedbc5c89, type: 3}
       propertyPath: attackRange
       value: 5
@@ -41196,7 +41196,7 @@ PrefabInstance:
     - target: {fileID: 2177660973440821502, guid: f599322778d0d9e4ca9a34e0c4032aa8, type: 3}
       propertyPath: bullet
       value: 
-      objectReference: {fileID: 356902156075422017, guid: 4d67abc4034d06f4480cd5a8138f5f25, type: 3}
+      objectReference: {fileID: 429543989968508660, guid: efce523f3cfae2842902af966bb2252c, type: 3}
     - target: {fileID: 2177660973440821502, guid: f599322778d0d9e4ca9a34e0c4032aa8, type: 3}
       propertyPath: joyStick
       value: 
