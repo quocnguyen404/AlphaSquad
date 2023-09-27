@@ -15,8 +15,7 @@ public class Shotgun : Weapon
 
             Bullet bullet = projectile.GetComponent<Bullet>();
 
-            bullet.SetBulletPooling(bulletPooling);
-            bullet.SetSpeed(weaponObject.speed);
+            bullet.SetSpeed(weaponObject.projectileSpeed);
             bullet.ShotToTarget(target);
         }
 

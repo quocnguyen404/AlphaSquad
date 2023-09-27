@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
 
     public List<EnemyBrain> enemies = null;
     public List<WayPoint> enemiesWaypoint = null;
-    public List<EnemyBrain> enemies = null;
     public HeroBrain player = null;
 
     private void Awake()

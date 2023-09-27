@@ -6,7 +6,6 @@ public class CharacterAttack : MonoBehaviour
 {
     private Weapon currentWeapon = null;
 
-
     public float AttackRange => currentWeapon.weaponObject.attackRange;
 
 

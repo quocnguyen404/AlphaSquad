@@ -23,6 +23,7 @@ public abstract class CharacterBrain : MonoBehaviour
     {
         agent.Initialized();
         characterAnimator.Initialized();
+        characterAttack.Initialized();
     }
 
 
