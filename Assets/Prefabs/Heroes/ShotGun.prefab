@@ -360,6 +360,7 @@ GameObject:
   - component: {fileID: 2177660973440821503}
   - component: {fileID: 2177660973440821500}
   - component: {fileID: 2177660973440821501}
+  - component: {fileID: 5982569191794498283}
   - component: {fileID: 2177660973440821502}
   m_Layer: 0
   m_Name: ShotGun
@@ -422,6 +423,18 @@ MonoBehaviour:
   moveSpeed: 5
   angularSpeed: 15
   showPath: 1
+--- !u!114 &5982569191794498283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2177660973440821473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8877625ae28e4d648a9c54d49f424992, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2177660973440821502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,9 +447,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece76e4924c30674eb23c69e1263a28d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterName: 
+  characterName: ShotGun
   agent: {fileID: 2177660973440821501}
   characterAnimator: {fileID: 8613295589525204515}
+  characterAttack: {fileID: 5982569191794498283}
   joyStick: {fileID: 0}
 --- !u!1 &2177660973505861013
 GameObject:

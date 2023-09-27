@@ -26,6 +26,14 @@ public class Agent : MonoBehaviour
         path = new NavMeshPath();
     }
 
+    public void SetDestination(Vector3 destination)
+    {
+        AgentBody.isStopped = false;
+        AgentBody.SetDestination(destination);
+        if (Vector3.Distance(transform.position, destination) <= AgentBody.radius)
+            OnArried?.Invoke();
+    }
+
 
     public void MoveToDestination(Vector3 destination)
     {

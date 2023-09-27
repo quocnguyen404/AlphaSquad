@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd932f940f25461469e4c074ffaec364, type: 3}
+  m_Name: ShotGun
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 1255987056839489720, guid: a3428f74ec1d5bf4a9099c208b26b8cc, type: 3}
+  attackRange: 10
+  fireRate: 0.2
+  reloadTime: 2
+  projectileSpeed: 5000

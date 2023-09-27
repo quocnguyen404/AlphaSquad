@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class CharacterAttack : MonoBehaviour
 {
-    public Weapon currentWeapon = null;
+    private Weapon currentWeapon = null;
 
-    public void Init()
+
+    public float AttackRange => currentWeapon.weaponObject.attackRange;
+
+
+    private void Awake()
     {
+        currentWeapon = GetComponentInChildren<Weapon>();
+    }
 
+    public void Initialized()
+    {
+        
     }
 
     public void Attack(Vector3 target)

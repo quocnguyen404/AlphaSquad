@@ -8,15 +8,16 @@ public class EnemyBrain : CharacterBrain
 {
 
     [Header("Attack")]
-    [SerializeField] protected float followRange = 10f;
+    [SerializeField] protected float attackRange = 5f;
 
 
     protected List<Vector3> wayPoints = null;
     protected int currentWaypointIndex = 0;
 
-    protected override Transform target => GameManager.Instance.player.transform;
+    protected override CharacterBrain targetAttack => GameManager.Instance.player;
 
     protected bool arried = false;
+    protected bool onFollowPlayer = false;
 
     protected override void Awake()
     {
@@ -25,32 +26,28 @@ public class EnemyBrain : CharacterBrain
         agent.OnArried = OnArried;
     }
 
-    protected override void Update()
+    protected virtual void Update()
     {
-        base.Update();
-
         if (arried)
             return;
 
-        if (FollowPlayer())
+        if (targetAttack != null && Vector3.Distance(transform.position, targetAttack.transform.position) <= attackRange)
+        {
+            onFollowPlayer = true;
+            agent.AgentBody.isStopped = true;
+            DoAttack();
+            return;
+        }
+
+        if (onFollowPlayer && targetAttack != null && Vector3.Distance(transform.position, targetAttack.transform.position) > attackRange)
         {
             characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
-            agent.MoveToDestination(target.position);
+            agent.SetDestination(targetAttack.transform.position);
             return;
         }
 
         characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
-        agent.MoveToDestination(wayPoints[currentWaypointIndex]);
-    }
-
-    protected virtual bool FollowPlayer()
-    {
-        return Vector3.Distance(transform.position, target.position) <= followRange;
-    }
-
-    protected override bool CanAttack()
-    {
-        return Vector3.Distance(transform.position, target.position) <= attackRange;
+        agent.SetDestination(wayPoints[currentWaypointIndex]);
     }
 
     protected virtual void OnArried()

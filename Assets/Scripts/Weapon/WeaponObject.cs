@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapon Object", menuName = "Weapon")]
+[CreateAssetMenu(fileName = "NewWeapon", menuName = "Weapon/CreateWeapon")]
 public class WeaponObject : ScriptableObject
 {
-    public float fireRate;
-    public float damage;
-    public float reload;
-    public float attackRange;
-    public float speed;
+    [Header("Object Reference")]
+    public GameObject projectile = null;
 
-    public GameObject projectile;
+    [Header("Comnfiguration")]
+    public float attackRange = 10f;
+    public float fireRate = 0.2f;
+    public float reloadTime = 2f;
+    public float projectileSpeed = 100f;
+
+    public WeaponObject()
+    {
+
+    }
 }

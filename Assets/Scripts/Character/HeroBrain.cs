@@ -1,58 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.DeviceSimulation;
+using System.Linq;
 using UnityEngine;
 
 public class HeroBrain : CharacterBrain
 {
     [SerializeField] protected Joystick joyStick = null;
 
-    protected override Transform target
+    protected override CharacterBrain targetAttack => GameManager.Instance.enemies.Find(e => Vector3.Distance(transform.position, e.gameObject.transform.position) <= characterAttack.AttackRange);
+
+
+    protected void Update()
     {
-        get
-        {
-            EnemyBrain en = null;
-            float min = attackRange;
-
-            foreach (EnemyBrain enemy in GameManager.Instance.enemies)
-            {
-                float dis = min = Vector3.Distance(enemy.transform.position, transform.position);
-                if (dis <= min)
-                {
-                    en = enemy;
-                    min = dis;
-                }
-            }
-
-            return en.transform;
-        }
-    }
-    protected bool onAttack = false;
-
-    protected override void Update()
-    {
-        base.Update();
-
-        if (target != null)
-            onAttack = Vector3.Distance(transform.position, target.transform.position) <= attackRange;
-
-        if (joyStick.Direction != Vector2.zero)
-            onAttack = false;
-
-        if (onAttack && CanAttack())
-        {
-            characterAnimator.SetAttack(CharacterAnimator.AttackType.Buff);
-            Vector3 dir = target.position - transform.position;
-            agent.RotateToDirection(dir);
-
-            DoAttack();
-
-            return;
-        }
-
         if (joyStick.Direction == Vector2.zero)
         {
-            characterAnimator.SetMovement(CharacterAnimator.MovementType.Idle);
+            if (CanAttack())
+                DoAttack();
+            else
+                characterAnimator.SetMovement(CharacterAnimator.MovementType.Idle);
             return;
         }
 
@@ -61,14 +26,4 @@ public class HeroBrain : CharacterBrain
         agent.MoveToDirection(targetDirection);
     }
 
-    protected override bool CanAttack()
-    {
-        bool canAttack = true;
-
-        canAttack = aLive;
-        canAttack = target != null;
-        canAttack = Vector3.Distance(transform.position, target.position) <= characterAttack.currentWeapon.weaponObject.attackRange;
-
-        return canAttack;
-    }
 }
