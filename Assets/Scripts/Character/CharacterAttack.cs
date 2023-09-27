@@ -8,11 +8,12 @@ public class CharacterAttack : MonoBehaviour
 
     public float AttackRange => currentWeapon.weaponObject.attackRange;
 
-
     private void Awake()
     {
         currentWeapon = GetComponentInChildren<Weapon>();
     }
+
+
 
     public void Initialized()
     {

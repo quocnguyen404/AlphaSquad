@@ -13,10 +13,10 @@ public class Shotgun : Weapon
             GameObject projectile = Instantiate(weaponObject.projectile);
             projectile.transform.position = spawnPoint.position;
 
-            Bullet bullet = projectile.GetComponent<Bullet>();
+            Projectile bullet = projectile.GetComponent<Projectile>();
 
             bullet.SetSpeed(weaponObject.projectileSpeed);
-            bullet.ShotToTarget(target);
+            bullet.MoveToTarget(target);
         }
 
         countTime += Time.deltaTime;

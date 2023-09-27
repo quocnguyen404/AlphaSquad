@@ -6,9 +6,7 @@ using UnityEngine;
 
 public class EnemyBrain : CharacterBrain
 {
-
-    [Header("Attack")]
-    [SerializeField] protected float attackRange = 5f;
+    [SerializeField] protected float attackRange => characterAttack.AttackRange;
 
 
     protected List<Vector3> wayPoints = null;
@@ -31,7 +29,7 @@ public class EnemyBrain : CharacterBrain
         if (arried)
             return;
 
-        if (targetAttack != null && Vector3.Distance(transform.position, targetAttack.transform.position) <= attackRange)
+        if (CanAttack())
         {
             onFollowPlayer = true;
             agent.AgentBody.isStopped = true;
@@ -43,11 +41,20 @@ public class EnemyBrain : CharacterBrain
         {
             characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
             agent.SetDestination(targetAttack.transform.position);
+
             return;
         }
 
         characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
         agent.SetDestination(wayPoints[currentWaypointIndex]);
+    }
+
+    protected override bool CanAttack()
+    {
+        if (targetAttack == null)
+            return false;
+
+        return Vector3.Distance(transform.position, targetAttack.transform.position) <= attackRange;
     }
 
     protected virtual void OnArried()

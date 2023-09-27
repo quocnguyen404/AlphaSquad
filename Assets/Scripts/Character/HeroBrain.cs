@@ -15,7 +15,9 @@ public class HeroBrain : CharacterBrain
         if (joyStick.Direction == Vector2.zero)
         {
             if (CanAttack())
+            {
                 DoAttack();
+            }
             else
                 characterAnimator.SetMovement(CharacterAnimator.MovementType.Idle);
             return;
@@ -24,6 +26,14 @@ public class HeroBrain : CharacterBrain
         characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
         Vector3 targetDirection = new Vector3(joyStick.Direction.x, 0, joyStick.Direction.y);
         agent.MoveToDirection(targetDirection);
+    }
+
+    protected override bool CanAttack()
+    {
+        if (targetAttack == null)
+            return false;
+
+        return Vector3.Distance(targetAttack.transform.position, transform.position) <= characterAttack.AttackRange;
     }
 
 }

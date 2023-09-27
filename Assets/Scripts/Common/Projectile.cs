@@ -37,8 +37,10 @@ public class Projectile : MonoBehaviour
 
     protected void OnTriggerEnter(Collider other)
     {
+        GameObject col = other.gameObject;
         projectileFX.gameObject.SetActive(false);
         hitFX.gameObject.SetActive(true);
         hitFX.Play();
+        Destroy(gameObject);
     }
 }
