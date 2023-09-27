@@ -28981,6 +28981,7 @@ GameObject:
   - component: {fileID: 1575790896}
   - component: {fileID: 1575790895}
   - component: {fileID: 1575790894}
+  - component: {fileID: 1575790897}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -29048,7 +29049,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1575790896
 Canvas:
   m_ObjectHideFlags: 0
@@ -29070,6 +29071,19 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1575790897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1575790892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08c2412bfa508a64a8add909e58cc349, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cv: {fileID: 0}
 --- !u!114 &1579118960 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 696611890852234184, guid: fea06135f77fb574b943033fedbc5c89, type: 3}
