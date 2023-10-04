@@ -53,6 +53,12 @@ public abstract class CharacterBrain : MonoBehaviour
         characterAttack.Attack(targetAttack.transform.position);
     }
 
+    protected virtual void DoReload()
+    {
+        //characterAnimator.SetMovement(CharacterAnimator);
+        characterAttack.Reload();
+    }
+
     protected virtual void OnTriggerEnter(Collider other)
     {
         ICauseDamage causeDamage = other.GetComponent<ICauseDamage>();

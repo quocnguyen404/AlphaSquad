@@ -9,7 +9,7 @@ public class GameWinUIHandler : EndGameUIHandler
         GameManager.Instance.OnWin += TurnOn;
     }
 
-    private void nDisable()
+    private void OnDisable()
     {
         GameManager.Instance.OnWin -= TurnOn;
     }

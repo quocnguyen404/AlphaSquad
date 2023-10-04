@@ -9,6 +9,7 @@ public class CharacterAnimator : MonoBehaviour
     { 
         Movement, 
         Attack,
+        Reload,
         Die,
     }
 
@@ -24,6 +25,11 @@ public class CharacterAnimator : MonoBehaviour
     { 
         ShotgunAttack, 
         KnifeAttack, 
+    }
+
+    public enum ReloadType
+    {
+        ShotgunReload,
     }
 
     public enum DieType

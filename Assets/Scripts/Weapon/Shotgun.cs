@@ -17,6 +17,9 @@ public class Shotgun : Weapon
 
             bullet.SetSpeed(weaponObject.projectileSpeed);
             bullet.MoveToTarget(target);
+
+            if (weaponObject.currentProjectileAmount > 0)
+                weaponObject.currentProjectileAmount--;
         }
 
         countTime += Time.deltaTime;
