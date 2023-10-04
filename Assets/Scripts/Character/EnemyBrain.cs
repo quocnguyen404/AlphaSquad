@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemyBrain : CharacterBrain
 {
     [SerializeField] protected float attackRange => characterAttack.AttackRange;
-
+    [SerializeField] protected virtual float followRange => 5f;
 
     protected List<Vector3> wayPoints = null;
     protected int currentWaypointIndex = 0;
@@ -26,6 +26,10 @@ public class EnemyBrain : CharacterBrain
 
     protected virtual void Update()
     {
+
+        if (!ALive)
+            return;
+
         if (arried)
             return;
 
@@ -37,30 +41,44 @@ public class EnemyBrain : CharacterBrain
             return;
         }
 
-        if (onFollowPlayer && targetAttack != null && Vector3.Distance(transform.position, targetAttack.transform.position) > attackRange)
+        if (FollowTarget())
         {
-            characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
+            characterAnimator.SetMovement(CharacterAnimator.MovementType.KnifeRun);
             agent.SetDestination(targetAttack.transform.position);
 
             return;
         }
 
-        characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
+        characterAnimator.SetMovement(CharacterAnimator.MovementType.KnifeRun);
         agent.SetDestination(wayPoints[currentWaypointIndex]);
+    }
+
+    protected override void DoAttack()
+    {
+        base.DoAttack();
+        characterAnimator.SetAttack(CharacterAnimator.AttackType.KnifeAttack);
+    }
+
+    protected virtual bool FollowTarget()
+    {
+        return targetAttack != null && Vector3.Distance(transform.position, targetAttack.transform.position) < followRange && targetAttack.ALive;
     }
 
     protected override bool CanAttack()
     {
+        if (!canAttack)
+            return false;
+
         if (targetAttack == null)
             return false;
 
-        return Vector3.Distance(transform.position, targetAttack.transform.position) <= attackRange;
+        return Vector3.Distance(transform.position, targetAttack.transform.position) <= attackRange && targetAttack.ALive;
     }
 
     protected virtual void OnArried()
     {
         arried = true;
-        characterAnimator.SetMovement(CharacterAnimator.MovementType.Idle);
+        characterAnimator.SetMovement(CharacterAnimator.MovementType.KnifeIdle);
         this.DelayCall(2, () =>
         {
             currentWaypointIndex++;

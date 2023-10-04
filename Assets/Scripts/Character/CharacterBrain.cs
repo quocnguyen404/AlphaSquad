@@ -11,8 +11,12 @@ public abstract class CharacterBrain : MonoBehaviour
     [SerializeField] protected Agent agent = null;
     [SerializeField] protected CharacterAnimator characterAnimator = null;
     [SerializeField] protected CharacterAttack characterAttack = null;
-
     [SerializeField] protected CharacterData characterData = null;
+    [SerializeField] protected Healthbar healthbar = null;
+
+    [Header("Debug")]
+    [SerializeField] protected bool canAttack;
+
     [SerializeField] private float currentHP;
     public bool ALive => currentHP > 0;
 
@@ -30,6 +34,7 @@ public abstract class CharacterBrain : MonoBehaviour
         agent.Initialized();
         characterAnimator.Initialized();
         characterAttack.Initialized();
+        healthbar.InitHealthbar(maxHP);
 
         currentHP = maxHP;
     }
@@ -41,20 +46,22 @@ public abstract class CharacterBrain : MonoBehaviour
         return targetAttack != null;
     }
 
-    protected void DoAttack()
+    protected virtual void DoAttack()
     {
         agent.RotateToDirection(targetAttack.transform.position - transform.position);
-        characterAnimator.SetAttack(CharacterAnimator.AttackType.Normally);
+        characterAnimator.SetAttack(CharacterAnimator.AttackType.ShotgunAttack);
         characterAttack.Attack(targetAttack.transform.position);
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Bullet")
+        ICauseDamage causeDamage = other.GetComponent<ICauseDamage>();
+
+        if (causeDamage != null /*|| other.tag == "Bullet"*/)
         {
             Debug.Log(name + " take damage");
-            currentHP -= 5f;
-            Debug.Log(currentHP);
+            currentHP -= causeDamage.Damage;
+            healthbar.HealthbarOnChangeValue(currentHP);
 
             if (!ALive) 
             {

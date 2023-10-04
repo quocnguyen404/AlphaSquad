@@ -12,6 +12,10 @@ public class HeroBrain : CharacterBrain
 
     protected void Update()
     {
+
+        if (!ALive)
+            return;
+
         if (joyStick.Direction == Vector2.zero)
         {
             if (CanAttack())
@@ -19,21 +23,29 @@ public class HeroBrain : CharacterBrain
                 DoAttack();
             }
             else
-                characterAnimator.SetMovement(CharacterAnimator.MovementType.Idle);
+                characterAnimator.SetMovement(CharacterAnimator.MovementType.ShotgunIdle);
             return;
         }
 
-        characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
+        characterAnimator.SetMovement(CharacterAnimator.MovementType.ShotgunRun);
         Vector3 targetDirection = new Vector3(joyStick.Direction.x, 0, joyStick.Direction.y);
         agent.MoveToDirection(targetDirection);
     }
 
     protected override bool CanAttack()
     {
+        if (!canAttack)
+            return false;
+
         if (targetAttack == null)
             return false;
 
-        return Vector3.Distance(targetAttack.transform.position, transform.position) <= characterAttack.AttackRange;
+        return Vector3.Distance(targetAttack.transform.position, transform.position) <= characterAttack.AttackRange && targetAttack.ALive;
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
     }
 
 }

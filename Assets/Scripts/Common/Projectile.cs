@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, ICauseDamage
 {
     [Header("Configuration")]
     public float moveSpeed = 100f;
@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour
 
     private Rigidbody rigidBody = null;
 
+    public float Damage => 10f;
 
     private void Awake()
     {

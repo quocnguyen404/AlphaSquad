@@ -11,6 +11,7 @@ public class WeaponObject : ScriptableObject
     public float fireRate = 0.2f;
     public float reloadTime = 2f;
     public float projectileSpeed = 100f;
+    public float damage = 10f;
 
     public WeaponObject()
     {
