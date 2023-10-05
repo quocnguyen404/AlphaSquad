@@ -21,8 +21,11 @@ public class Healthbar : MonoBehaviour
 
     private void Update()
     {
-        cv.transform.forward = cam.transform.forward;    
+        cv.transform.rotation = Quaternion.identity;
+        cv.transform.forward = cam.transform.forward;
     }
+
+
 
     public void InitHealthbar(float maxHealth)
     {

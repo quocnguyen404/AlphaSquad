@@ -13,7 +13,7 @@ public class WeaponObject : ScriptableObject
     public int currentProjectileAmount = 0;
     public int maxProjectileAmount = 20;
     public float projectileSpeed = 100f;
-
+    public float damage = 10f;
     public WeaponObject()
     {
 

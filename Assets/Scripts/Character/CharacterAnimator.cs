@@ -9,7 +9,7 @@ public class CharacterAnimator : MonoBehaviour
     { 
         Movement, 
         Attack,
-        Reload,
+        Action,
         Die,
     }
 
@@ -27,7 +27,7 @@ public class CharacterAnimator : MonoBehaviour
         KnifeAttack, 
     }
 
-    public enum ReloadType
+    public enum ActionType
     {
         ShotgunReload,
     }
@@ -45,6 +45,7 @@ public class CharacterAnimator : MonoBehaviour
     protected AnimationState currentAnimationState;
     protected MovementType currentMovementType;
     protected AttackType currentAttackType;
+    protected ActionType currentActionType;
     protected string currentTrigger = "";
 
 
@@ -89,6 +90,18 @@ public class CharacterAnimator : MonoBehaviour
 
         currentAnimationState = AnimationState.Attack;
         currentAttackType = type;
+    }
+
+    public void SetAction(ActionType type)
+    {
+        if (currentAnimationState == AnimationState.Action && currentActionType == type)
+            return;
+
+        SetFloat("ActionType", (int)type);
+        SetTrigger("Action");
+
+        currentAnimationState = AnimationState.Action;
+        currentActionType = type;
     }
 
     public void SetTrigger(string param)

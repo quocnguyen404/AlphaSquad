@@ -43,6 +43,11 @@ public class HeroBrain : CharacterBrain
         return Vector3.Distance(targetAttack.transform.position, transform.position) <= characterAttack.AttackRange && targetAttack.ALive;
     }
 
+    protected override void DoAttack()
+    {
+        base.DoAttack();
+    }
+
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);

@@ -24,7 +24,7 @@ public abstract class CharacterBrain : MonoBehaviour
     public string Name => characterName;
 
 
-    protected abstract CharacterBrain targetAttack { get; }
+    protected virtual CharacterBrain targetAttack { get; }
     
 
 
@@ -39,8 +39,6 @@ public abstract class CharacterBrain : MonoBehaviour
         currentHP = maxHP;
     }
 
-
-
     protected virtual bool CanAttack()
     {
         return targetAttack != null;
@@ -48,14 +46,20 @@ public abstract class CharacterBrain : MonoBehaviour
 
     protected virtual void DoAttack()
     {
-        agent.RotateToDirection(targetAttack.transform.position - transform.position);
-        characterAnimator.SetAttack(CharacterAnimator.AttackType.ShotgunAttack);
-        characterAttack.Attack(targetAttack.transform.position);
+        if (!characterAttack.IsReload)
+        {
+            agent.RotateToDirection(targetAttack.transform.position - transform.position);
+            characterAnimator.SetAttack(CharacterAnimator.AttackType.ShotgunAttack);
+            characterAttack.Attack(targetAttack.transform.position);
+        }
+        else
+            DoReload();
+       
     }
 
     protected virtual void DoReload()
     {
-        //characterAnimator.SetMovement(CharacterAnimator);
+        characterAnimator.SetAction(CharacterAnimator.ActionType.ShotgunReload);
         characterAttack.Reload();
     }
 

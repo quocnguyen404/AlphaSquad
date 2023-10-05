@@ -15,5 +15,8 @@ MonoBehaviour:
   projectile: {fileID: 1255987056839489720, guid: a3428f74ec1d5bf4a9099c208b26b8cc, type: 3}
   attackRange: 10
   fireRate: 0.2
-  reloadTime: 2
+  reloadTime: 1.333
+  currentProjectileAmount: 2
+  maxProjectileAmount: 10
   projectileSpeed: 5000
+  damage: 1

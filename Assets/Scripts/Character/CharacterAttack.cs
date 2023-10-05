@@ -22,17 +22,11 @@ public class CharacterAttack : MonoBehaviour
 
     public void Attack(Vector3 target)
     {
-        if (!IsReload) 
-            currentWeapon.Attack(target);
-        else
-            Reload();
+        currentWeapon.Attack(target);
     }
 
     public void Reload()
     {
-        DOVirtual.DelayedCall(currentWeapon.weaponObject.reloadTime, () =>
-        {
-            currentWeapon.weaponObject.currentProjectileAmount = currentWeapon.weaponObject.maxProjectileAmount;
-        });
+        currentWeapon.Reload();
     }
 }
