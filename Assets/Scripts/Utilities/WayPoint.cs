@@ -6,7 +6,7 @@ using UnityEngine;
 public class WayPoint
 {
     public string targetEnemy = "";
-    public List<Transform> points = null;
+    public List<Vector3> points = null;
 
     public WayPoint()
     {

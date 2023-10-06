@@ -5,3 +5,10 @@ public enum AttributeType
     DFS,
     SPD,
 }
+
+public enum SceneName
+{
+    Scene1,
+    Scene2, 
+    Scene3,
+}

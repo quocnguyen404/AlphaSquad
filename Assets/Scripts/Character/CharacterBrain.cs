@@ -4,9 +4,6 @@ using UnityEngine;
 
 public abstract class CharacterBrain : MonoBehaviour
 {
-    [Header("Configuration")]
-    [SerializeField] protected string characterName;
-
     [Header("Component System")]
     [SerializeField] protected Agent agent = null;
     [SerializeField] protected CharacterAnimator characterAnimator = null;
@@ -14,14 +11,27 @@ public abstract class CharacterBrain : MonoBehaviour
     [SerializeField] protected CharacterData characterData = null;
     [SerializeField] protected Healthbar healthbar = null;
 
+    [SerializeField] protected string _name;
+
     [Header("Debug")]
     [SerializeField] protected bool canAttack;
 
     [SerializeField] private float currentHP;
     public bool ALive => currentHP > 0;
 
-    public float maxHP => characterData.attributes.Find(a => a.Type == AttributeType.HP).Value;
-    public string Name => characterName;
+    public CharacterData CharacterData
+    {
+        get
+        {
+            if (characterData == null)
+                characterData = Resources.Load<CharacterData>("CharacterData/" + _name);
+
+            return characterData;
+        }
+    }
+
+    public float maxHP => CharacterData.attributes.Find(a => a.Type == AttributeType.HP).Value;
+    public string Name => CharacterData._name;
 
 
     protected virtual CharacterBrain targetAttack { get; }
@@ -30,7 +40,6 @@ public abstract class CharacterBrain : MonoBehaviour
 
     protected virtual void Awake()
     {
-        characterData = Resources.Load<CharacterData>("Data/" + name);
         agent.Initialized();
         characterAnimator.Initialized();
         characterAttack.Initialized();
@@ -67,16 +76,13 @@ public abstract class CharacterBrain : MonoBehaviour
     {
         ICauseDamage causeDamage = other.GetComponent<ICauseDamage>();
 
-        if (causeDamage != null /*|| other.tag == "Bullet"*/)
+        if (causeDamage != null)
         {
             Debug.Log(name + " take damage");
             currentHP -= causeDamage.Damage;
             healthbar.HealthbarOnChangeValue(currentHP);
 
-            if (!ALive) 
-            {
-                characterAnimator.SetTrigger("Die");
-            }
+            
         }
     }
 

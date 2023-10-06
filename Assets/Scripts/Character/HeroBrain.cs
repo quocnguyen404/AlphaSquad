@@ -5,9 +5,19 @@ using UnityEngine;
 
 public class HeroBrain : CharacterBrain
 {
-    [SerializeField] protected Joystick joyStick = null;
+    [SerializeField] public Joystick joyStick = null;
 
-    protected override CharacterBrain targetAttack => GameManager.Instance.enemies.Find(e => Vector3.Distance(transform.position, e.gameObject.transform.position) <= characterAttack.AttackRange);
+    protected override CharacterBrain targetAttack
+    {
+        get
+        {
+            if (GameManager.Instance.enemies != null)
+                return GameManager.Instance.enemies.Find(e => Vector3.Distance(transform.position, e.gameObject.transform.position) <= characterAttack.AttackRange);
+            else 
+                return null;
+        }
+    }
+        
 
 
     protected void Update()
@@ -51,6 +61,13 @@ public class HeroBrain : CharacterBrain
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
+
+        if (!ALive)
+        {
+            characterAnimator.SetTrigger("Die");
+            agent.Stop();
+            GameManager.Instance.OnEnemyDie?.Invoke();
+        }
     }
 
 }

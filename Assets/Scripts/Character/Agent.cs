@@ -59,6 +59,11 @@ public class Agent : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetQuaternion, angularSpeed * Time.deltaTime);
     }
 
+    public void Stop()
+    {
+        AgentBody.isStopped = true;
+    }
+
 
     private void OnDrawGizmos()
     {

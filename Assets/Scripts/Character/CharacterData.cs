@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Data/Character", fileName = "CharacterData")]
 public class CharacterData : ScriptableObject
 {
+    [SerializeField] public string _name;
     [SerializeField] public List<DataConfiguration.Attribute> attributes;
-
-    public CharacterData() { }
 }

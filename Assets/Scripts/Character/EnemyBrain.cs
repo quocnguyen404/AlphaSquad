@@ -9,7 +9,7 @@ public class EnemyBrain : CharacterBrain
     [SerializeField] protected float attackRange => characterAttack.AttackRange;
     [SerializeField] protected virtual float followRange => 5f;
 
-    protected List<Vector3> wayPoints = null;
+    public List<Vector3> wayPoints = null;
     protected int currentWaypointIndex = 0;
 
     protected override CharacterBrain targetAttack => GameManager.Instance.player;
@@ -20,7 +20,7 @@ public class EnemyBrain : CharacterBrain
     protected override void Awake()
     {
         base.Awake();
-        wayPoints = GameManager.Instance.enemiesWaypoint.Find(w => w.targetEnemy.Equals(Name))?.points.Select(p => p.position).ToList();
+        //wayPoints = GameManager.Instance.enemiesWaypoint.Find(w => w.targetEnemy.Equals(Name))?.points.Select(p => p).ToList();
         agent.OnArried = OnArried;
     }
 
@@ -28,7 +28,9 @@ public class EnemyBrain : CharacterBrain
     {
 
         if (!ALive)
+        {
             return;
+        }
 
         if (arried)
             return;
@@ -86,5 +88,17 @@ public class EnemyBrain : CharacterBrain
                 currentWaypointIndex = 0;
             arried = false;
         });
+    }
+
+    protected override void OnTriggerEnter(Collider other)
+    {
+        base.OnTriggerEnter(other);
+
+        if (!ALive)
+        {
+            characterAnimator.SetTrigger("Die");
+            agent.Stop();
+            GameManager.Instance.OnEnemyDie?.Invoke();
+        }
     }
 }
