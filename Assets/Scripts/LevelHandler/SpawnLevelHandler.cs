@@ -17,14 +17,13 @@ public class SpawnLevelHandler : MonoBehaviour
     {
         HeroBrain player = Resources.Load<GameObject>("Prefabs/Player/Player").GetComponent<HeroBrain>();
         player.joyStick = joystick;
-
-        GameManager.Instance.player = Instantiate(player, GameManager.Instance.levelData.playerInitPos, Quaternion.identity);
+        GameManager.Instance.player = Instantiate(player, GameManager.Instance.LevelData.playerInitPos, Quaternion.identity);
     }
     
     public void SpawnEnemyAndWayPoint()
     {
 
-        foreach (WayPoint wp in GameManager.Instance.levelData.wayPoints)
+        foreach (WayPoint wp in GameManager.Instance.LevelData.wayPoints)
         {
             EnemyBrain enemyPrefab = Resources.Load<GameObject>(string.Format("Prefabs/Enemies/{0}", wp.targetEnemy)).GetComponent<EnemyBrain>();
             EnemyBrain enemy = Instantiate(enemyPrefab, wp.points[0], Quaternion.identity);

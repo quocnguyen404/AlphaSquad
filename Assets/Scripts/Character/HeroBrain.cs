@@ -11,10 +11,7 @@ public class HeroBrain : CharacterBrain
     {
         get
         {
-            if (GameManager.Instance.enemies != null)
-                return GameManager.Instance.enemies.Find(e => Vector3.Distance(transform.position, e.gameObject.transform.position) <= characterAttack.AttackRange);
-            else 
-                return null;
+            return GameManager.Instance.enemies.Find(e => Vector3.Distance(transform.position, e.gameObject.transform.position) <= characterAttack.AttackRange);
         }
     }
         
@@ -29,11 +26,10 @@ public class HeroBrain : CharacterBrain
         if (joyStick.Direction == Vector2.zero)
         {
             if (CanAttack())
-            {
                 DoAttack();
-            }
             else
                 characterAnimator.SetMovement(CharacterAnimator.MovementType.ShotgunIdle);
+
             return;
         }
 

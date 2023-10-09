@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ea864ef17a1fb847b17477f8404d351, type: 3}
   m_Name: MiniGunBot
   m_EditorClassIdentifier: 
-  name: MiniGunBot
+  _name: 
   attributes:
   - <Type>k__BackingField: 0
     <Value>k__BackingField: 200
@@ -22,3 +22,4 @@ MonoBehaviour:
     <Value>k__BackingField: 5
   - <Type>k__BackingField: 3
     <Value>k__BackingField: 12
+  characterPrefab: {fileID: 2090199612872910141, guid: d17982f32001de745be6dae4c313b47d, type: 3}

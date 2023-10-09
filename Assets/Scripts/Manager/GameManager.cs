@@ -2,23 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
 
 [DefaultExecutionOrder(-1000)]
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
+
     [SerializeField] private SpawnLevelHandler spawnLevelHandler = null;
-
-
     [SerializeField] private Joystick joystick = null;
 
-    public LevelSO levelData = null;
-    private UserData userData = new UserData();
-    public UserData UserData => userData;
-    public int levelIndex => UserData.currentLevel;
+    private LevelSO levelData = null;
+    public LevelSO LevelData
+    {
+        get
+        {
+            if (levelData == null)
+            {
+                levelData = Resources.Load<LevelSO>(string.Format("LevelSO/Level {0}", UserData.currentLevel));
+            }
+
+            return levelData;
+        }
+    }
 
     public List<EnemyBrain> enemies = null;
-    //public List<WayPoint> enemiesWaypoint = null;
     public HeroBrain player = null;
 
     public System.Action OnPlayerDie = null;
@@ -33,19 +41,39 @@ public class GameManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-
-        levelData = Resources.Load<LevelSO>(string.Format("LevelSO/Level {0}", levelIndex));
-
-        spawnLevelHandler.Init();
-        spawnLevelHandler.SpawnPlayer(joystick);
-        spawnLevelHandler.SpawnEnemyAndWayPoint();
     }
     #endregion
+
+
+    private UserData _userData = null;
+
+    public UserData UserData
+    {
+        get 
+        {
+            if (_userData == null)
+            {
+                _userData = GameConfig.LoadUserData();
+            }
+
+            return _userData; 
+        }
+
+        set
+        {
+            _userData = value;
+            GameConfig.SaveUserData(_userData);
+        }
+    }
 
     private void OnEnable()
     {
         OnEnemyDie += EnemyDie;
         OnPlayerDie += PlayerDie;
+
+        spawnLevelHandler.Init();
+        spawnLevelHandler.SpawnPlayer(joystick);
+        spawnLevelHandler.SpawnEnemyAndWayPoint();
     }
 
     private void OnDisable()

@@ -8,13 +8,14 @@ public class Shotgun : Weapon
     private bool isReloading;
     public override void Attack(Vector3 target)
     {
-
         if (isReloading)
             return;
 
         if (countTime == 0) 
         {
-            GameObject projectile = Instantiate(weaponObject.projectile);
+            //GameObject projectile = Instantiate(weaponObject.projectile);
+            GameObject projectile = Pooling.GetProjectile().gameObject;
+
             projectile.transform.position = spawnPoint.position;
 
             Projectile bullet = projectile.GetComponent<Projectile>();
@@ -33,14 +34,14 @@ public class Shotgun : Weapon
     public override void Reload()
     {
         isReloading = true;
-        Debug.Log("Reload");
+        //Debug.Log("Reload");
         Invoke("DoneReload", weaponObject.reloadTime);
     }
 
     protected void DoneReload()
     {
         isReloading = false;
-        Debug.Log("Done reload");
+        //Debug.Log("Done reload");
         weaponObject.currentProjectileAmount = weaponObject.maxProjectileAmount;
     }
 }

@@ -9,4 +9,5 @@ public class LevelSO : ScriptableObject
     public int enemyAmount = 0;
     public Vector3 playerInitPos = Vector3.zero;
     public List<WayPoint> wayPoints = new List<WayPoint>();
+    public int map;
 }

@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform targetFollow = null;
+    public Transform targetFollow
+    {
+        get
+        {
+            return GameManager.Instance.player.transform;
+        }
+    }
     public Vector3 targetOffset;
     public float lerpRate = 40f;
 

@@ -25,7 +25,10 @@ public class WinGate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Load to next level");
+        if (other.tag == "Player")
+        {
+            Debug.Log("Load to next level");
+        }
     }
 
 
