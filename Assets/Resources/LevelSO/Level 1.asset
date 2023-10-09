@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Level 1
   m_EditorClassIdentifier: 
   level: 1
-  enemyAmount: 2
+  enemyAmount: 1
   playerInitPos: {x: -36.23, y: 2.153852, z: 39.09}
   wayPoints:
   - targetEnemy: MiniGunBot
     points:
     - {x: -33.57, y: 2.61, z: 54.51}
     - {x: -40.13, y: 2.61, z: 54.51}
+  map: 0

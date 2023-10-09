@@ -11,10 +11,10 @@ public class HeroBrain : CharacterBrain
     {
         get
         {
-            return GameManager.Instance.enemies.Find(e => Vector3.Distance(transform.position, e.gameObject.transform.position) <= characterAttack.AttackRange);
+            return GameManager.Instance.enemies.Find(e => Vector3.Distance(transform.position, e.gameObject.transform.position) <= characterAttack.AttackRange && e.ALive);
         }
     }
-        
+
 
 
     protected void Update()

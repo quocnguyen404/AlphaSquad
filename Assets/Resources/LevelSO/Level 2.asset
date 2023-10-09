@@ -22,5 +22,6 @@ MonoBehaviour:
     - {x: -40.13, y: 2.61, z: 54.51}
   - targetEnemy: MiniGunBot
     points:
-    - {x: -33.57, y: 2.61, z: 36.5}
-    - {x: -40.13, y: 2.61, z: 54.51}
+    - {x: -33.57, y: 2.61, z: 60}
+    - {x: -40.13, y: 2.61, z: 60}
+  map: 0

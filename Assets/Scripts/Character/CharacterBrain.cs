@@ -35,7 +35,7 @@ public abstract class CharacterBrain : MonoBehaviour
 
 
     protected virtual CharacterBrain targetAttack { get; }
-    
+
 
 
     protected virtual void Awake()
@@ -63,7 +63,7 @@ public abstract class CharacterBrain : MonoBehaviour
         }
         else
             DoReload();
-       
+
     }
 
     protected virtual void DoReload()
@@ -78,11 +78,9 @@ public abstract class CharacterBrain : MonoBehaviour
 
         if (causeDamage != null)
         {
-            Debug.Log(name + " take damage");
+            //Debug.Log(name + " take damage");
             currentHP -= causeDamage.Damage;
             healthbar.HealthbarOnChangeValue(currentHP);
-
-            
         }
     }
 

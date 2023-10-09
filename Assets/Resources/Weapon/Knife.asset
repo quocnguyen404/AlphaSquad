@@ -16,4 +16,7 @@ MonoBehaviour:
   attackRange: 1.5
   fireRate: 0.2
   reloadTime: 2
+  currentProjectileAmount: 20
+  maxProjectileAmount: 20
   projectileSpeed: 100
+  damage: 20

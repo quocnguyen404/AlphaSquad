@@ -11,7 +11,7 @@ public class Shotgun : Weapon
         if (isReloading)
             return;
 
-        if (countTime == 0) 
+        if (countTime == 0)
         {
             //GameObject projectile = Instantiate(weaponObject.projectile);
             GameObject projectile = Pooling.GetProjectile().gameObject;
@@ -20,6 +20,8 @@ public class Shotgun : Weapon
 
             Projectile bullet = projectile.GetComponent<Projectile>();
 
+            bullet.SetDamage(weaponObject.damage);
+            bullet.SetPosition(spawnPoint.position);
             bullet.SetSpeed(weaponObject.projectileSpeed);
             bullet.MoveToTarget(target);
 

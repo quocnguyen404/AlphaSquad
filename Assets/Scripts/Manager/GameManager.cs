@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private SpawnLevelHandler spawnLevelHandler = null;
     [SerializeField] private Joystick joystick = null;
 
+    public int MaxLevel = 3;
+
     private LevelSO levelData = null;
     public LevelSO LevelData
     {
@@ -19,7 +21,14 @@ public class GameManager : MonoBehaviour
         {
             if (levelData == null)
             {
-                levelData = Resources.Load<LevelSO>(string.Format("LevelSO/Level {0}", UserData.currentLevel));
+                int index = GameConfig.UserData.currentLevel;
+                if (index > MaxLevel)
+                {
+                    index = 1;
+                }
+
+                Debug.Log("Load level " + index);
+                levelData = Resources.Load<LevelSO>(string.Format("LevelSO/Level {0}", index));
             }
 
             return levelData;
@@ -44,27 +53,6 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-
-    private UserData _userData = null;
-
-    public UserData UserData
-    {
-        get 
-        {
-            if (_userData == null)
-            {
-                _userData = GameConfig.LoadUserData();
-            }
-
-            return _userData; 
-        }
-
-        set
-        {
-            _userData = value;
-            GameConfig.SaveUserData(_userData);
-        }
-    }
 
     private void OnEnable()
     {
@@ -92,6 +80,21 @@ public class GameManager : MonoBehaviour
         if (!enemies.Any(e => e.ALive == true))
         {
             OnWin?.Invoke();
+            LevelUp();
         }
     }
+
+    private void LevelUp()
+    {
+        UserData newData = (UserData)GameConfig.UserData.Clone();
+
+        if (newData.currentLevel > MaxLevel)
+            newData.currentLevel = 1;
+        else
+            newData.currentLevel++;
+
+        GameConfig.UserData = newData;
+        Debug.Log(GameConfig.UserData.currentLevel);
+    }
+
 }

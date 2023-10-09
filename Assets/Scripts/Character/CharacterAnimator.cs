@@ -5,37 +5,37 @@ using UnityEngine;
 
 public class CharacterAnimator : MonoBehaviour
 {
-    public enum AnimationState 
-    { 
-        Movement, 
+    public enum AnimationState
+    {
+        Movement,
         Attack,
         Action,
         Die,
     }
 
-    public enum MovementType 
-    { 
-        ShotgunIdle, 
-        ShotgunRun,
-        KnifeIdle,
-        KnifeRun,
+    public enum MovementType
+    {
+        Idle,
+        Run,
     }
 
-    public enum AttackType 
-    { 
-        ShotgunAttack, 
-        KnifeAttack, 
+    public enum AttackType
+    {
+        Normal,
+        Buff,
     }
 
     public enum ActionType
     {
-        ShotgunReload,
+        Reload,
+        Victory,
+        GetHit,
     }
 
     public enum DieType
     {
-        ShotgunDie,
-        KnifeDie,
+        KnowOut,
+        Die,
     }
 
 

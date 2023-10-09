@@ -6,35 +6,51 @@ using DG.Tweening;
 [RequireComponent(typeof(CanvasGroup))]
 public class UIHandler : MonoBehaviour
 {
+    [SerializeField] protected RectTransform popRect = null;
     protected CanvasGroup cv = null;
-    protected RectTransform popRect = null;
     protected float popTime = 0.7f;
 
-    protected void Awake()
+    protected virtual void Awake()
     {
         cv = GetComponent<CanvasGroup>();
     }
 
     public void Start()
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        CanvasOff();
     }
 
     public void TurnOn()
     {
-        gameObject.SetActive(true);
+        CanvasOn();
+        cv.alpha = 1f;
         popRect.DOScale(Vector3.one, popTime).SetAutoKill();
     }
 
 
-    public void TurnOff() 
+    public void TurnOff()
     {
         popRect.DOScale(Vector3.one, popTime)
             .OnComplete(() =>
             {
-                gameObject.SetActive(false);
+                CanvasOff();
             })
             .SetAutoKill();
 
+    }
+
+    public void CanvasOff()
+    {
+        cv.alpha = 0f;
+        cv.interactable = false;
+        cv.blocksRaycasts = false;
+    }
+
+    public void CanvasOn()
+    {
+        cv.alpha = 1f;
+        cv.interactable = true;
+        cv.blocksRaycasts = true;
     }
 }

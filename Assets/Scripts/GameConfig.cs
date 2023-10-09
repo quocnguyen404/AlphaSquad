@@ -2,47 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
+using ES3Internal;
 
 public static class GameConfig
 {
+    private const string UserDataKey = "userdata123";
+
+    public static UserData UserData
+    {
+        get
+        {
+            if (!ES3.KeyExists(UserDataKey))
+            {
+                UserData data = GetDefaultUserData();
+                return data;
+            }
+
+            return ES3.Load<UserData>(UserDataKey);
+        }
+
+        set
+        {
+            SaveUserData(value);
+        }
+    }
 
     public static void SaveUserData(UserData userData)
     {
-        string path = Application.persistentDataPath + "/UserData.json";
-
-        string txt = JsonConvert.SerializeObject(userData);
-
-        //FileStream stream = new FileStream(path, FileMode.Create);
-
-        File.WriteAllText(path, txt);
-        Debug.Log("Save success path: " + path);
-
-        //stream.Close();
+        ES3.Save(UserDataKey, userData);
     }
-
-    public static UserData LoadUserData()
-    {
-         string path = Application.persistentDataPath + "/UserData.json";
-
-        UserData userData = null;
-
-        if (File.Exists(path))
-        {
-            Debug.Log("Load user data from: " + path);
-
-            string content = File.ReadAllText(path);
-            userData = JsonConvert.DeserializeObject<UserData>(content);
-        }
-        else if (!File.Exists(path))
-        {
-            Debug.Log("Not found " + path + " init default user data");
-            userData = GetDefaultUserData();
-        }
-
-        return userData;
-    }
-
 
     private static UserData GetDefaultUserData()
     {

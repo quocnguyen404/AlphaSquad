@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class WinGate : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class WinGate : MonoBehaviour
         if (other.tag == "Player")
         {
             Debug.Log("Load to next level");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
