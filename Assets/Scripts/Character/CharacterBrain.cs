@@ -58,7 +58,7 @@ public abstract class CharacterBrain : MonoBehaviour
         if (!characterAttack.IsReload)
         {
             agent.RotateToDirection(targetAttack.transform.position - transform.position);
-            characterAnimator.SetAttack(CharacterAnimator.AttackType.ShotgunAttack);
+            characterAnimator.SetAttack(CharacterAnimator.AttackType.Normal);
             characterAttack.Attack(targetAttack.transform.position);
         }
         else
@@ -68,8 +68,16 @@ public abstract class CharacterBrain : MonoBehaviour
 
     protected virtual void DoReload()
     {
-        characterAnimator.SetAction(CharacterAnimator.ActionType.ShotgunReload);
+        characterAnimator.SetAction(CharacterAnimator.ActionType.Reload);
         characterAttack.Reload();
+    }
+
+    protected virtual void TakeDamage(float damage)
+    {
+        currentHP -= damage;
+        characterAnimator.SetAction(CharacterAnimator.ActionType.GetHit);
+        healthbar.HealthbarOnChangeValue(currentHP);
+
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -78,9 +86,7 @@ public abstract class CharacterBrain : MonoBehaviour
 
         if (causeDamage != null)
         {
-            //Debug.Log(name + " take damage");
-            currentHP -= causeDamage.Damage;
-            healthbar.HealthbarOnChangeValue(currentHP);
+            TakeDamage(causeDamage.Damage);
         }
     }
 

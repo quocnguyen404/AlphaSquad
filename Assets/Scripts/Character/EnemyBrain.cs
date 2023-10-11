@@ -20,7 +20,6 @@ public class EnemyBrain : CharacterBrain
     protected override void Awake()
     {
         base.Awake();
-        //wayPoints = GameManager.Instance.enemiesWaypoint.Find(w => w.targetEnemy.Equals(Name))?.points.Select(p => p).ToList();
         agent.OnArried = OnArried;
     }
 
@@ -45,20 +44,20 @@ public class EnemyBrain : CharacterBrain
 
         if (FollowTarget())
         {
-            characterAnimator.SetMovement(CharacterAnimator.MovementType.KnifeRun);
+            characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
             agent.SetDestination(targetAttack.transform.position);
 
             return;
         }
 
-        characterAnimator.SetMovement(CharacterAnimator.MovementType.KnifeRun);
+        characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
         agent.SetDestination(wayPoints[currentWaypointIndex]);
     }
 
     protected override void DoAttack()
     {
         base.DoAttack();
-        characterAnimator.SetAttack(CharacterAnimator.AttackType.KnifeAttack);
+        characterAnimator.SetAttack(CharacterAnimator.AttackType.Normal);
     }
 
     protected virtual bool FollowTarget()
@@ -80,7 +79,7 @@ public class EnemyBrain : CharacterBrain
     protected virtual void OnArried()
     {
         arried = true;
-        characterAnimator.SetMovement(CharacterAnimator.MovementType.KnifeIdle);
+        characterAnimator.SetMovement(CharacterAnimator.MovementType.Idle);
         this.DelayCall(2, () =>
         {
             currentWaypointIndex++;

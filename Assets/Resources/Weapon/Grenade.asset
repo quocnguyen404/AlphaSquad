@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd932f940f25461469e4c074ffaec364, type: 3}
-  m_Name: MiniGun
+  m_Name: Grenade
   m_EditorClassIdentifier: 
-  projectile: {fileID: 1255987056839489720, guid: a3428f74ec1d5bf4a9099c208b26b8cc, type: 3}
-  attackRange: 11
-  fireRate: 0.1
-  reloadTime: 1.3
-  currentProjectileAmount: 10
-  maxProjectileAmount: 30
-  projectileSpeed: 4000
-  damage: 6
+  projectile: {fileID: 6441718085568275049, guid: ed132f0e1fb7f494bb7ab321d2aaa166, type: 3}
+  attackRange: 15
+  fireRate: 1
+  reloadTime: 3
+  currentProjectileAmount: 0
+  maxProjectileAmount: 20
+  projectileSpeed: 100
+  damage: 30

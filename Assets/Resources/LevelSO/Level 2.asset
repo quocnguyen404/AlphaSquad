@@ -12,16 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 220066f08649a24449f547038af61177, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  level: 1
-  enemyAmount: 2
+  level: 2
+  enemyAmount: 3
   playerInitPos: {x: -36.23, y: 2.153852, z: 39.09}
   wayPoints:
   - targetEnemy: MiniGunBot
     points:
     - {x: -33.57, y: 2.61, z: 54.51}
     - {x: -40.13, y: 2.61, z: 54.51}
-  - targetEnemy: MiniGunBot
+  - targetEnemy: KnightDefault
     points:
     - {x: -33.57, y: 2.61, z: 60}
+    - {x: -40.13, y: 2.61, z: 60}
+  - targetEnemy: NinjaDefault
+    points:
+    - {x: -33.57, y: 2.61, z: 65}
     - {x: -40.13, y: 2.61, z: 60}
   map: 0

@@ -17,6 +17,7 @@ public class Healthbar : MonoBehaviour
     {
         cv = GetComponent<Canvas>();
         cam = Camera.main;
+        cv.worldCamera = cam;
     }
 
     private void Update()

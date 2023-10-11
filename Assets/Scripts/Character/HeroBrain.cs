@@ -28,12 +28,12 @@ public class HeroBrain : CharacterBrain
             if (CanAttack())
                 DoAttack();
             else
-                characterAnimator.SetMovement(CharacterAnimator.MovementType.ShotgunIdle);
+                characterAnimator.SetMovement(CharacterAnimator.MovementType.Idle);
 
             return;
         }
 
-        characterAnimator.SetMovement(CharacterAnimator.MovementType.ShotgunRun);
+        characterAnimator.SetMovement(CharacterAnimator.MovementType.Run);
         Vector3 targetDirection = new Vector3(joyStick.Direction.x, 0, joyStick.Direction.y);
         agent.MoveToDirection(targetDirection);
     }
